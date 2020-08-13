@@ -3,7 +3,36 @@ from flask import render_template, flash, redirect, url_for, request
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User
-from app.forms import RegistrationForm, LoginForm, EmptyForm
+from app.forms import RegistrationForm, LoginForm, EmptyForm,EditProfileForm, ResetPasswordRequestForm, ResetPasswordForm 
+from app.email import send_password_reset_email
+
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('profile'))
+    user = User.verify_reset_password_token(token)
+    if not user:
+        return redirect(url_for('profile'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        user.set_password(form.password.data)
+        db.session.commit()
+        flash('Your password has been reset.')
+        return redirect(url_for('login'))
+    return render_template('passwordReset.html', form=form)
+
+@app.route('/editProfile', methods=['GET', 'POST'])
+@login_required
+def editProfile():
+    form = EditProfileForm()
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        db.session.commit()
+        flash('Your changes have been saved.')
+        return redirect(url_for('editProfile'))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+    return render_template('editProfile.html', title='Edit Profile', form = form)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -41,7 +70,7 @@ def logout():
 @app.route('/profile')
 @login_required
 def profile():    
-    return render_template("profile.html", title='Home_Page', posts=posts)
+    return render_template("profile.html", title='Home_Page')
 
 @app.route('/follow/<username>', methods=['POST'])
 @login_required
@@ -88,4 +117,17 @@ def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     form = EmptyForm()
     return render_template('user.html', user=user, form=form)
+
+@app.route('/reset_password_request', methods=['GET', 'POST'])
+def reset_password_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('profile'))
+    form = ResetPasswordRequestForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user:
+            send_password_reset_email(user)
+        flash('Check your email for the instructions to reset your password')
+        return redirect(url_for('login'))
+    return render_template('reset_password_request.html', title='PASSWORD Reset', form=form)
    
