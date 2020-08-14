@@ -1,17 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>User: {{ user.username }}</h1>
-    {% if user == current_user %}
-    <p>
+        <p>User: {{ user.username }}</p>
+        <p>email: {{ user.email }}</p>     
+        {% if user == current_user %}
         <a href="{{ url_for('editProfile') }}">Edit your profile</a>
-    </p>
-    {% elif not current_user.is_following(user) %}
-    <p>
+        </p>
+        {% elif not current_user.is_following(user) %}
+        <p>
         <form action="{{ url_for('follow', username=user.username) }}" method="post">
             {{ form.hidden_tag() }}
             {{ form.submit(value='Follow') }}
         </form>
     </p>
+    {% else %}
     <p>
         <form action="{{ url_for('unfollow', username=user.username) }}" method="post">
             {{ form.hidden_tag() }}

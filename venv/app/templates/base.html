@@ -10,10 +10,10 @@
     </head>
     <body>
        <div>
-            <h1>bitcube:</h1>
+            <p>bitcube:</p>
             <a href ="{{ url_for('profile') }}">Home</a>
             <a href="{{ url_for('login') }}">Login</a>
-            <a href="{{ url_for('user', username=current_user.username) }}">My Profile and Friends</a>
+            <a href="{{ url_for('user', username=current_user.username) }}">My Profile</a>
             <a href="{{ url_for('logout') }}">Logout</a>
         </div>
         <hr>

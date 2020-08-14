@@ -39,7 +39,7 @@
             {% endfor %}
         </p>
         <p>
-            {{form.password2.label }}<br>
+            {{ form.password2.label }}<br>
             {{ form.password2(size=32) }}<br>
             {% for error in form.password2.errors %}
             <li>{{ error }}</li>

@@ -6,8 +6,19 @@ from app.models import User
 
 class EditProfileForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
+    name = StringField('Name', validators=[DataRequired()])
+    surname = StringField('Surname', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
+    def __init__(self, original_username, *args, **kwargs):
+        super(EditProfileForm, self).__init__(*args, **kwargs)
+        self.original_username = original_username
+
+    def validate_username(self, username):
+        if username.data != self.original_username:
+            user = User.query.filter_by(username=self.username.data).first()
+            if user is not None:
+                raise ValidationError('Use other username.')
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
@@ -15,9 +26,9 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Sign In')
     
 class RegistrationForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
     name = StringField('Name', validators = [DataRequired()])
     surname = StringField('Surname', validators = [DataRequired()])
-    username = StringField('Username', validators=[DataRequired()])
     email = StringField('Email', validators= [DataRequired(), Email()])
     password = PasswordField('Password', validators= [DataRequired(),Length(min=6, message='between 6 and 10 Characters long!'), Regexp (r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$' , message = 'at least 1 number, 1 upper, 1 lower, 1 special character')])
     password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password', message = 'Passwords must match.')])
@@ -32,6 +43,7 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('Please use a different email address.')
+        
 class EmptyForm(FlaskForm):
     submit = SubmitField('Submit')
 
@@ -41,6 +53,5 @@ class ResetPasswordRequestForm(FlaskForm):
 
 class ResetPasswordForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
-    password2 = PasswordField(
-        'Repeat Password', validators=[DataRequired(), EqualTo('password')])
+    password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Request Password Reset')

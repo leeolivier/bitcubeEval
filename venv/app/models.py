@@ -1,9 +1,8 @@
-from datetime import datetime
-from app import app, db, login, models
+from app import app, db, login
 from flask_login import UserMixin, current_user, login_user
 from werkzeug.security import generate_password_hash, check_password_hash
-from time import time
 import jwt
+followers = db.Table('followers', db.Column('follower_id', db.Integer, db.ForeignKey('user.id')), db.Column('followed_id', db.Integer, db.ForeignKey('user.id')))
 
 @login.user_loader
 def load_user(id):
@@ -11,10 +10,11 @@ def load_user(id):
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), index=True, unique=True)
+    username = db.Column(db.String(64))
+    name = db.Column(db.String(64))
+    surname = db.Column(db.String(120))
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
-    followers = db.Table('followers', db.Column('follower_id', db.Integer, db.ForeignKey('user.id')), db.Column('followed_id', db.Integer, db.ForeignKey('user.id')))
     followed = db.relationship('User', secondary=followers, primaryjoin=(followers.c.follower_id == id), secondaryjoin=(followers.c.followed_id == id), backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
     
     def __repr__ (self):
@@ -26,7 +26,6 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    
     def follow(self, user):
         if not self.is_following(user):
             self.followed.append(user)
@@ -36,16 +35,11 @@ class User(UserMixin, db.Model):
             self.followed.remove(user)
 
     def is_following(self, user):
-        return self.followed.filter(
-            followers.c.followed_id == user.id).count() > 0
-
-    def __repr__(self):
-        return '<Post {}>'.format(self.body)
+        return self.followed.filter(followers.c.followed_id == user.id).count() > 0
 
     def get_reset_password_token(self, expires_in=600):
         return jwt.encode(
-            {'reset_password': self.id, 'exp': time() + expires_in},
-            app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
+            {'reset_password': self.id, 'exp': time() + expires_in}, app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
 
     @staticmethod
     def verify_reset_password_token(token):

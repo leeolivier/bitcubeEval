@@ -3,13 +3,28 @@
     <h1>Edit Profile</h1>
     <form action="" method="post">
         {{ form.hidden_tag() }}
-        <p>
+            <p>
             {{ form.username.label }}<br>
             {{ form.username(size=32) }}<br>
             {% for error in form.username.errors %}
             <li>{{ error }}</li>
             {% endfor %}
-        </p>
+            </p>
+            <p>
+            {{ form.name.label }}<br>
+            {{ form.name(size=32) }}<br>
+            {% for error in form.name.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+            </p>
+            <p>
+            {{ form.surname.label }}<br>
+            {{ form.surname(size=32) }}<br>
+            {% for error in form.surname.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+            </p>
+        
         
         <p>{{ form.submit() }}</p>
     </form>

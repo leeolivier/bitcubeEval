@@ -1,0 +1,131 @@
+2020-08-14 12:19:40,516 ERROR: Exception on /user/bruce [GET] [in /home/leeolivier/.local/lib/python3.8/site-packages/flask/app.py:1891]
+Traceback (most recent call last):
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/leeolivier/bitcube/venv/app/routes.py", line 123, in user
+    return render_template('user.html', user=user, form=form)
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask/templating.py", line 137, in render_template
+    return _render(
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask/templating.py", line 120, in _render
+    rv = template.render(context)
+  File "/usr/lib/python3/dist-packages/jinja2/asyncsupport.py", line 76, in render
+    return original_render(self, *args, **kwargs)
+  File "/usr/lib/python3/dist-packages/jinja2/environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "/usr/lib/python3/dist-packages/jinja2/environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/lib/python3/dist-packages/jinja2/_compat.py", line 37, in reraise
+    raise value.with_traceback(tb)
+  File "/home/leeolivier/bitcube/venv/app/templates/user.html", line 1, in <module>
+    {% extends "base.html" %}
+  File "/home/leeolivier/bitcube/venv/app/templates/base.html", line 29, in <module>
+    {% block content %}
+  File "/home/leeolivier/bitcube/venv/app/templates/user.html", line 4, in <module>
+    <h1>{{ name.username }}</h1>
+  File "/usr/lib/python3/dist-packages/jinja2/environment.py", line 430, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'name' is undefined
+2020-08-14 12:19:40,811 ERROR: Exception on /user/bruce [GET] [in /home/leeolivier/.local/lib/python3.8/site-packages/flask/app.py:1891]
+Traceback (most recent call last):
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/leeolivier/bitcube/venv/app/routes.py", line 123, in user
+    return render_template('user.html', user=user, form=form)
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask/templating.py", line 137, in render_template
+    return _render(
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask/templating.py", line 120, in _render
+    rv = template.render(context)
+  File "/usr/lib/python3/dist-packages/jinja2/asyncsupport.py", line 76, in render
+    return original_render(self, *args, **kwargs)
+  File "/usr/lib/python3/dist-packages/jinja2/environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "/usr/lib/python3/dist-packages/jinja2/environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/lib/python3/dist-packages/jinja2/_compat.py", line 37, in reraise
+    raise value.with_traceback(tb)
+  File "/home/leeolivier/bitcube/venv/app/templates/user.html", line 1, in <module>
+    {% extends "base.html" %}
+  File "/home/leeolivier/bitcube/venv/app/templates/base.html", line 29, in <module>
+    {% block content %}
+  File "/home/leeolivier/bitcube/venv/app/templates/user.html", line 4, in <module>
+    <h1>{{ name.username }}</h1>
+  File "/usr/lib/python3/dist-packages/jinja2/environment.py", line 430, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'name' is undefined
+2020-08-14 12:20:43,664 INFO: bitcube startup [in /home/leeolivier/bitcube/venv/app/__init__.py:47]
+2020-08-14 12:24:13,024 INFO: bitcube startup [in /home/leeolivier/bitcube/venv/app/__init__.py:47]
+2020-08-14 12:27:04,229 INFO: bitcube startup [in /home/leeolivier/bitcube/venv/app/__init__.py:47]
+2020-08-14 12:27:30,701 INFO: bitcube startup [in /home/leeolivier/bitcube/venv/app/__init__.py:47]
+2020-08-14 12:27:44,356 INFO: bitcube startup [in /home/leeolivier/bitcube/venv/app/__init__.py:47]
+2020-08-14 12:27:54,211 INFO: bitcube startup [in /home/leeolivier/bitcube/venv/app/__init__.py:47]
+2020-08-14 12:34:33,808 INFO: bitcube startup [in /home/leeolivier/bitcube/venv/app/__init__.py:47]
+2020-08-14 12:35:20,991 INFO: bitcube startup [in /home/leeolivier/bitcube/venv/app/__init__.py:47]
+2020-08-14 12:54:29,721 INFO: bitcube startup [in /home/leeolivier/bitcube/venv/app/__init__.py:47]
+2020-08-14 12:56:10,271 INFO: bitcube startup [in /home/leeolivier/bitcube/venv/app/__init__.py:47]
+2020-08-14 12:57:02,955 INFO: bitcube startup [in /home/leeolivier/bitcube/venv/app/__init__.py:47]
+2020-08-14 12:57:07,727 ERROR: Exception on /user/bruce [GET] [in /home/leeolivier/.local/lib/python3.8/site-packages/flask/app.py:1891]
+Traceback (most recent call last):
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/leeolivier/bitcube/venv/app/routes.py", line 123, in user
+    name = request.get('name')
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/werkzeug/local.py", line 347, in __getattr__
+    return getattr(self._get_current_object(), name)
+AttributeError: 'Request' object has no attribute 'get'
+2020-08-14 12:57:09,392 ERROR: Exception on /user/bruce [GET] [in /home/leeolivier/.local/lib/python3.8/site-packages/flask/app.py:1891]
+Traceback (most recent call last):
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/leeolivier/bitcube/venv/app/routes.py", line 123, in user
+    name = request.get('name')
+  File "/home/leeolivier/.local/lib/python3.8/site-packages/werkzeug/local.py", line 347, in __getattr__
+    return getattr(self._get_current_object(), name)
+AttributeError: 'Request' object has no attribute 'get'
